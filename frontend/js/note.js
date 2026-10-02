@@ -9,7 +9,7 @@ if (!noteId) {
   window.location.href = 'home.html';
 }
 
-const me = JSON.parse(localStorage.getItem('user') || 'null');
+let me = JSON.parse(localStorage.getItem('user') || 'null');
 let noteFileName = 'note';
 
 // helper: call the API with the login token
@@ -30,6 +30,17 @@ async function api(path, options = {}) {
     throw new Error(data.message || 'Something went wrong');
   }
   return data;
+}
+
+// refresh the user (and role) from the server
+async function refreshMe() {
+  try {
+    const data = await api('/me');
+    me = data.user;
+    localStorage.setItem('user', JSON.stringify(me));
+  } catch (err) {
+    // keep the saved user
+  }
 }
 
 // helper: create an element safely (textContent, never innerHTML)
@@ -155,19 +166,25 @@ function renderDoubt(d) {
   });
   card.appendChild(form);
 
-  // buttons only for the person who asked the doubt
-  if (me && me.id === d.user_id) {
+  // asker can mark solved; asker or admin can delete
+  const isAsker = me && me.id === d.user_id;
+  const isAdmin = me && me.role === 'admin';
+
+  if (isAsker || isAdmin) {
     const actions = el('div', 'card-actions');
 
-    const solveBtn = el('button', 'solve-btn', d.is_solved ? 'Mark as unsolved' : 'Mark as solved');
-    solveBtn.addEventListener('click', async () => {
-      try {
-        await api(`/doubts/${d.id}/solved`, { method: 'PATCH' });
-        loadDoubts();
-      } catch (err) {
-        alert(err.message);
-      }
-    });
+    if (isAsker) {
+      const solveBtn = el('button', 'solve-btn', d.is_solved ? 'Mark as unsolved' : 'Mark as solved');
+      solveBtn.addEventListener('click', async () => {
+        try {
+          await api(`/doubts/${d.id}/solved`, { method: 'PATCH' });
+          loadDoubts();
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+      actions.appendChild(solveBtn);
+    }
 
     const delBtn = el('button', 'delete-btn', 'Delete doubt');
     delBtn.addEventListener('click', async () => {
@@ -179,9 +196,8 @@ function renderDoubt(d) {
         alert(err.message);
       }
     });
-
-    actions.appendChild(solveBtn);
     actions.appendChild(delBtn);
+
     card.appendChild(actions);
   }
 
@@ -209,5 +225,12 @@ document.getElementById('doubtForm').addEventListener('submit', async (e) => {
   btn.disabled = false;
 });
 
-loadNote();
-loadDoubts();
+// get the latest role first, then load the page
+refreshMe().then(() => {
+  loadNote();
+  loadDoubts();
+});
+refreshMe().then(() => {
+  loadNote();
+  loadDoubts();
+});

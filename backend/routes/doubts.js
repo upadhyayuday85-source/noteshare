@@ -101,8 +101,11 @@ router.delete('/doubts/:doubtId', auth, (req, res) => {
   if (!doubt) {
     return res.status(404).json({ message: 'Doubt not found' });
   }
-  if (doubt.user_id !== req.user.id) {
+   const me = db.prepare('SELECT role FROM users WHERE id = ?').get(req.user.id);
+  const isAdmin = me && me.role === 'admin';
+  if (doubt.user_id !== req.user.id && !isAdmin) {
     return res.status(403).json({ message: 'You can only delete your own doubts' });
+  }
   }
 
   db.prepare('DELETE FROM doubts WHERE id = ?').run(doubt.id);

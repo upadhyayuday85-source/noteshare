@@ -115,8 +115,11 @@ router.delete('/:id', auth, (req, res) => {
   if (!note) {
     return res.status(404).json({ message: 'Note not found' });
   }
-  if (note.uploaded_by !== req.user.id) {
+    const me = db.prepare('SELECT role FROM users WHERE id = ?').get(req.user.id);
+  const isAdmin = me && me.role === 'admin';
+  if (note.uploaded_by !== req.user.id && !isAdmin) {
     return res.status(403).json({ message: 'You can only delete your own notes' });
+  
   }
 
   db.prepare('DELETE FROM notes WHERE id = ?').run(note.id);

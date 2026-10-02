@@ -49,5 +49,9 @@ db.exec(`
     FOREIGN KEY (user_id) REFERENCES users(id)
   );
 `);
-
-module.exports = db;
+// add the role column if it does not exist yet
+const userColumns = db.prepare('PRAGMA table_info(users)').all();
+if (!userColumns.some((c) => c.name === 'role')) {
+  db.exec("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'student'");
+}
+s = db;

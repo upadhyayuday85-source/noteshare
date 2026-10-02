@@ -25,6 +25,7 @@ async function loadUser() {
       return;
     }
     const data = await res.json();
+        localStorage.setItem('user', JSON.stringify(data.user));
     document.getElementById('welcome').textContent = `Hi, ${data.user.name} 👋`;
   } catch (err) {
     document.getElementById('welcome').textContent = 'Server not reachable';
@@ -111,7 +112,7 @@ function renderNotes(notes) {
 
     // delete button only for the person who uploaded this note
     const me = getCurrentUser();
-    if (me && me.id === note.uploaded_by) {
+        if (me && (me.id === note.uploaded_by || me.role === 'admin')) {
       const delBtn = document.createElement('button');
       delBtn.className = 'delete-btn';
       delBtn.textContent = 'Delete';
@@ -180,3 +181,4 @@ async function deleteNote(id) {
     alert('Could not connect to the server.');
   }
 }
+loadUser().then(loadNotes);
