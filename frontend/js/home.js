@@ -101,7 +101,13 @@ function renderNotes(notes) {
     btn.className = 'download-btn';
     btn.textContent = 'Download';
     btn.addEventListener('click', () => downloadNote(note.id, note.original_name));
+        const viewBtn = document.createElement('a');
+    viewBtn.className = 'view-btn';
+    viewBtn.textContent = 'Doubts';
+    viewBtn.href = `note.html?id=${note.id}`;
+    actions.appendChild(viewBtn);
     actions.appendChild(btn);
+
 
     // delete button only for the person who uploaded this note
     const me = getCurrentUser();

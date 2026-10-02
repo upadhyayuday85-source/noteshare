@@ -124,5 +124,23 @@ router.delete('/:id', auth, (req, res) => {
 
   res.json({ message: 'Note deleted' });
 }); 
+// GET ONE NOTE
+router.get('/:id', auth, (req, res) => {
+  const note = db
+    .prepare(
+      `SELECT notes.id, notes.title, notes.subject, notes.branch, notes.semester,
+              notes.description, notes.original_name, notes.created_at, notes.uploaded_by,
+              users.name AS uploaded_by_name
+       FROM notes
+       JOIN users ON users.id = notes.uploaded_by
+       WHERE notes.id = ?`
+    )
+    .get(req.params.id);
+
+  if (!note) {
+    return res.status(404).json({ message: 'Note not found' });
+  }
+  res.json({ note });
+});
 
 module.exports = router;

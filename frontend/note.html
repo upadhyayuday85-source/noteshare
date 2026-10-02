@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note - NoteShare</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-body">
+  <nav class="navbar">
+    <a class="logo" href="home.html">NoteShare</a>
+    <div class="nav-right">
+      <a class="nav-link" href="home.html">Home</a>
+      <a class="nav-link" href="upload.html">Upload Notes</a>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <main class="content">
+    <a class="back-link" href="home.html">&larr; Back to all notes</a>
+
+    <div class="note-detail">
+      <h2 id="noteTitle">Loading...</h2>
+      <div id="noteTags" class="tags"></div>
+      <p id="noteDesc" class="muted"></p>
+      <p id="noteMeta" class="meta"></p>
+      <button id="downloadBtn" class="download-btn inline-btn">Download</button>
+    </div>
+
+    <section class="doubts-section">
+      <h3>Doubts (<span id="doubtCount">0</span>)</h3>
+
+      <form id="doubtForm" class="doubt-form">
+        <textarea id="question" rows="3" maxlength="1000" placeholder="Ask your doubt about this note..." required></textarea>
+        <button type="submit" id="doubtBtn" class="inline-btn">Post doubt</button>
+      </form>
+      <div id="doubtMessage" class="message"></div>
+
+      <div id="doubtsList"></div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/note.js"></script>
+</body>
+</html>
