@@ -98,6 +98,4 @@ noteshare/
 
 Uday Upadhyay
 - GitHub: [upadhyayuday85-source](https://github.com/upadhyayuday85-source)
-- LinkedIn: [Uday Upadhyay][def]
-
-[def]: https://www.linkedin.com/in/uday-upadhyay-4b4bbb306
+- LinkedIn: [Uday Upadhyay](https://www.linkedin.com/in/uday-upadhyay-4b4bbb306)
