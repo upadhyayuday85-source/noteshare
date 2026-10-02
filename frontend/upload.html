@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Notes - NoteShare</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-body">
+  <nav class="navbar">
+    <a class="logo" href="home.html">NoteShare</a>
+    <div class="nav-right">
+      <a class="nav-link" href="home.html">Home</a>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <main class="content">
+    <div class="card wide">
+      <h1>Upload notes</h1>
+      <p class="subtitle">Share your notes with your classmates (PDF, JPG or PNG, max 10 MB)</p>
+
+      <form id="uploadForm">
+        <label for="title">Title</label>
+        <input type="text" id="title" placeholder="e.g. Digital Electronics Unit 1" required>
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" placeholder="e.g. Digital Electronics" required>
+
+        <div class="row">
+          <div>
+            <label for="branch">Branch</label>
+            <select id="branch" required>
+              <option value="">Select</option>
+              <option>CSE</option>
+              <option>IT</option>
+              <option>ECE</option>
+              <option>EE</option>
+              <option>ME</option>
+              <option>CE</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="semester">Semester</label>
+            <select id="semester" required>
+              <option value="">Select</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+              <option value="7">Semester 7</option>
+              <option value="8">Semester 8</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="description">Description (optional)</label>
+        <textarea id="description" rows="3" placeholder="Short description of the notes"></textarea>
+
+        <label for="file">File</label>
+        <input type="file" id="file" accept=".pdf,.jpg,.jpeg,.png" required>
+
+        <button type="submit" id="submitBtn">Upload</button>
+        <div id="message" class="message"></div>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/upload.js"></script>
+</body>
+</html>
