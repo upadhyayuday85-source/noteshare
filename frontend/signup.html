@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - NoteShare</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Create account</h1>
+    <p class="subtitle">Join NoteShare and share notes with your classmates</p>
+
+    <form id="signupForm">
+      <label for="name">Full name</label>
+      <input type="text" id="name" placeholder="Your name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="At least 6 characters" required>
+
+      <div class="row">
+        <div>
+          <label for="branch">Branch</label>
+          <select id="branch" required>
+            <option value="">Select</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>ECE</option>
+            <option>EE</option>
+            <option>ME</option>
+            <option>CE</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="year">Year</label>
+          <select id="year" required>
+            <option value="">Select</option>
+            <option value="1">1st year</option>
+            <option value="2">2nd year</option>
+            <option value="3">3rd year</option>
+            <option value="4">4th year</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn">Sign Up</button>
+      <div id="message" class="message"></div>
+    </form>
+
+    <p class="switch">Already have an account? <a href="login.html">Log in</a></p>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/signup.js"></script>
+</body>
+</html>
