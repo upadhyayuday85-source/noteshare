@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'http://localhost:5000/api'
+  : 'https://YOUR-RENDER-URL.onrender.com/api';
 
 function saveAuth(token, user) {
   localStorage.setItem('token', token);
